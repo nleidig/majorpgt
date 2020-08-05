@@ -1,0 +1,16 @@
+library(dplyr)
+getwd()
+clf<-read.csv("200725_Caulfield.csv", stringsAsFactors = FALSE)
+clf<-select(clf, meeting.date, track, race.number, distance, horse.name, horse.number, horse.barrier, horse.weight, horse.claim, horse.last10, horse.record, horse.record.distance, horse.record.track, horse.record.first.up, horse.record.second.up, prizemoney)
+clf<-clf %>% distinct(horse.name, .keep_all=TRUE)
+clf<-clf[-12,]
+View(clf)
+library(tidyr)
+clf<-separate(data=clf, col=horse.record, into=c("Starts", "Placings"), sep=":")
+library(stringr)
+clf$last2<-str_sub(clf$horse.last10, -2, -1)
+clf<-clf[c(1,2,3,4,5,6,7,8,9,10,18,11,12,13,14,15,16,17)]
+clf[,7]<-sapply(clf[,7], as.numeric)
+typeof(clf$horse.barrier)
+sum(clf$horse.barrier)
+sapply(clf,typeof)
