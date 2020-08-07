@@ -2,6 +2,7 @@ library(dplyr)
 library(tidyr)
 library(stringr)
 library(survPen)
+library(stringi)
 getwd()
 
 clf<-read.csv("200725_Caulfield.csv", stringsAsFactors = FALSE)
@@ -15,3 +16,5 @@ clf$last2<-str_sub(clf$horse.last10, -2, -1)
 clf<-clf[c(1,2,3,4,5,6,7,8,9,10,18,11,12,13,14,15,16,17)]
 clf[,7]<-sapply(clf[,7], as.numeric)
 View(clf)
+
+for(i in 1:length(clf$rev10)){clf$rsincespl<-instr(clf$rev10,"x")}
