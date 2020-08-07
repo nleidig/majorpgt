@@ -17,4 +17,5 @@ clf<-clf[c(1,2,3,4,5,6,7,8,9,10,18,11,12,13,14,15,16,17)]
 clf[,7]<-sapply(clf[,7], as.numeric)
 View(clf)
 
-for(i in 1:length(clf$rev10)){clf$rsincespl<-instr(clf$rev10,"x")}
+clf$rev10<-stri_reverse(clf$horse.last10)
+for(i in 1:length(clf$rev10)){clf$rsincespl[i]<-instr(clf$rev10[i],"x")}
