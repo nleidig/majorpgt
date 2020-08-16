@@ -113,13 +113,58 @@ for(i in 1:nrow(clf)){
   }else if (clf$l1[i]>=7){
     clf$lastrat[i]="1"
   }}
-clf[,37]<-sapply(clf[,37], as.numeric)
+clf[,38]<-sapply(clf[,38], as.numeric)
 sumlastrat<-vector()
 for(i in 1:max(clf$race.number)){sumlastrat[i]=sum(subset(clf, race.number==i) $lastrat)}
 clf$lastratprob<-clf$lastrat/sumlastrat[clf$race.number]
 # Check prob: sum(subset(clf,race.number=="1") $lastratprob)
 
+clf<-separate(data=clf, col=horse.record.first.up, into=c("fupst", "fuppl"), sep=":")
+clf<-separate(data=clf, col=horse.record.second.up, into=c("secst", "suppl"), sep=":")
+clf<-separate(data=clf, col=horse.record.distance, into=c("distst", "distpl"), sep=":")
+clf<-separate(data=clf, col=horse.record.track, into=c("trackst", "trackpl"), sep=":")
 
+clf<-separate(data=clf, col=fuppl, into=c("fuppl1", "fuppl2", "fuppl3"), sep="-")
+clf<-separate(data=clf, col=suppl, into=c("suppl1", "suppl2", "suppl3"), sep="-")
+clf<-separate(data=clf, col=distpl, into=c("distpl1", "distpl2", "distpl3"), sep="-")
+clf<-separate(data=clf, col=trackpl, into=c("trackpl1", "trackpl2", "trackpl3"), sep="-")
+for(i in 1:nrow(clf)){if(clf$secst[i]==0){clf$secst[i]=1}}
+for(i in 1:nrow(clf)){if(clf$distst[i]==0){clf$distst[i]=1}}
+for(i in 1:nrow(clf)){if(clf$trackst[i]==0){clf$trackst[i]=1}}
+
+clf[,16:31]<-sapply(clf[,16:31], as.numeric)
+
+clf$fuptotal<-clf$fuppl1 + clf$fuppl2 + clf$fuppl3
+clf$fuprat<-clf$fuptotal/clf$fupst
+sumfuprat<-vector()
+for(i in 1:max(clf$race.number)){sumfuprat[i]=sum(subset(clf, race.number==i) $fuprat)}
+clf$fupratprob<-clf$fuprat/sumfuprat[clf$race.number]
+View(clf)
+# Check prob: sum(subset(clf,race.number=="1") $fupratprob)
+
+clf$suptotal<-clf$suppl1 + clf$suppl2 + clf$suppl3
+clf$suprat<-clf$suptotal/clf$secst
+sumsuprat<-vector()
+for(i in 1:max(clf$race.number)){sumsuprat[i]=sum(subset(clf, race.number==i) $suprat)}
+clf$supratprob<-clf$suprat/sumsuprat[clf$race.number]
+View(clf)
+# Check prob: sum(subset(clf,race.number=="1") $supratprob)
+
+clf$disttotal<-clf$distpl1 + clf$distpl2 + clf$distpl3
+clf$distrat<-clf$disttotal/clf$distst
+sumdistrat<-vector()
+for(i in 1:max(clf$race.number)){sumdistrat[i]=sum(subset(clf, race.number==i) $distrat)}
+clf$distratprob<-clf$distrat/sumdistrat[clf$race.number]
+View(clf)
+# Check prob: sum(subset(clf,race.number=="1") $distratprob)
+
+clf$tracktotal<-clf$trackpl1 + clf$trackpl2 + clf$trackpl3
+clf$trackrat<-clf$tracktotal/clf$trackst
+sumtrackrat<-vector()
+for(i in 1:max(clf$race.number)){sumtrackrat[i]=sum(subset(clf, race.number==i) $trackrat)}
+clf$trackratprob<-clf$trackrat/sumtrackrat[clf$race.number]
+View(clf)
+# Check prob: sum(subset(clf,race.number=="1") $trackratprob)
 
 
 
