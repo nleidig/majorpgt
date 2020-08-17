@@ -8,7 +8,7 @@ getwd()
 clf<-read.csv("200725_Caulfield.csv", stringsAsFactors = FALSE)
 clf<-select(clf, meeting.date, track, race.number, distance, horse.name, horse.number, horse.barrier, horse.weight, horse.claim, horse.last10, horse.record, horse.record.distance, horse.record.track, horse.record.first.up, horse.record.second.up, prizemoney)
 clf<-clf %>% distinct(horse.name, .keep_all=TRUE)
-clf<-clf[-12,]
+clf<-clf[!(clf$track=="track"),]
 View(clf)
 
 clf<-separate(data=clf, col=horse.record, into=c("starts", "placings"), sep=":")
