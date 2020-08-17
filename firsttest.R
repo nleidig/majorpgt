@@ -166,6 +166,28 @@ clf$trackratprob<-clf$trackrat/sumtrackrat[clf$race.number]
 View(clf)
 # Check prob: sum(subset(clf,race.number=="1") $trackratprob)
 
+clf[,8:9]<-sapply(clf[,8:9], as.numeric)
+
+clf$wgtrat<-82-(clf$horse.weight-clf$horse.claim)
+sumwgtrat<-vector()
+for(i in 1:max(clf$race.number)){sumwgtrat[i]=sum(subset(clf, race.number==i) $wgtrat)}
+clf$wgtratprob<-clf$wgtrat/sumwgtrat[clf$race.number]
+View(clf)
+# Check prob: sum(subset(clf,race.number=="1") $wgtratprob)
+
+clf$prob<-clf$prizeratprob+clf$spellratprob+clf$startsratprob+clf$winratprob+clf$placeratprob+clf$barrierratprob+clf$lastratprob+clf$fupratprob+clf$supratprob+clf$distratprob+clf$trackratprob+clf$wgtratprob
+sumprob<-vector()
+for(i in 1:max(clf$race.number)){sumprob[i]=sum(subset(clf, race.number==i) $prob)}
+clf$hseprob<-clf$prob/sumprob[clf$race.number]
+View(clf)
+# Check prob: sum(subset(clf,race.number=="1") $hseprob)
+
+clf$price<-1/clf$hseprob-1
+clf$rceno<-clf$race.number
+clf$hse<-clf$horse.name
+
+clf<-arrange(clf, rceno, price)
+
 
 
 
