@@ -5,7 +5,7 @@ library(survPen)
 library(stringi)
 getwd()
 
-clf<-read.csv("200725_Caulfield.csv", stringsAsFactors = FALSE)
+clf<-read.csv("200819_Sandown-Lakeside.csv", stringsAsFactors = FALSE)
 clf<-select(clf, meeting.date, track, race.number, distance, horse.name, horse.number, horse.barrier, horse.weight, horse.claim, horse.last10, horse.record, horse.record.distance, horse.record.track, horse.record.first.up, horse.record.second.up, prizemoney)
 clf<-clf %>% distinct(horse.name, .keep_all=TRUE)
 clf<-clf[!(clf$track=="track"),]
@@ -66,6 +66,7 @@ View(clf)
 clf<-separate(data=clf, col=placings, into=c("first", "second", "third"), sep="-")
 clf[,13:15]<-sapply(clf[,13:15], as.numeric)
 clf$winrat<-clf$first/clf$starts
+for(i in 1:nrow(clf)){if (clf$winrat[i]==0){clf$winrat[i]=.000001}}
 sumwinrat<-vector()
 for(i in 1:max(clf$race.number)){sumwinrat[i]=sum(subset(clf, race.number==i) $winrat)}
 clf$winratprob<-clf$winrat/sumwinrat[clf$race.number]
