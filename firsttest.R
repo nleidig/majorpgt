@@ -5,7 +5,7 @@ library(survPen)
 library(stringi)
 getwd()
 
-clf<-read.csv("200819_Sandown-Lakeside.csv", stringsAsFactors = FALSE)
+clf<-read.csv("200820_Warrnambool.csv", stringsAsFactors = FALSE)
 clf<-select(clf, meeting.date, track, race.number, distance, horse.name, horse.number, horse.barrier, horse.weight, horse.claim, horse.last10, horse.record, horse.record.distance, horse.record.track, horse.record.first.up, horse.record.second.up, prizemoney)
 clf<-clf %>% distinct(horse.name, .keep_all=TRUE)
 clf<-clf[!(clf$track=="track"),]
