@@ -188,8 +188,9 @@ clf$hseprob<-clf$prob/sumprob[clf$race.number]
 View(clf)
 # Check prob: sum(subset(clf,race.number=="1") $hseprob)
 
-clf$price<-1/clf$hseprob-1
+clf$price<-(1/clf$hseprob-1)*2
 clf$price<-floor(clf$price)
+clf$price<-clf$price/2
 clf$rceno<-clf$race.number
 clf$hse<-clf$horse.name
 clf$hseno<-clf$horse.number
