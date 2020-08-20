@@ -75,6 +75,7 @@ View(clf)
 
 clf$placetotal<-clf$first + clf$second + clf$third
 clf$placerat<-clf$placetotal/clf$starts
+for(i in 1:nrow(clf)){if (clf$placerat[i]==0){clf$placerat[i]=.000001}}
 sumplacerat<-vector()
 for(i in 1:max(clf$race.number)){sumplacerat[i]=sum(subset(clf, race.number==i) $placerat)}
 clf$placeratprob<-clf$placerat/sumplacerat[clf$race.number]
@@ -137,6 +138,7 @@ clf[,16:31]<-sapply(clf[,16:31], as.numeric)
 
 clf$fuptotal<-clf$fuppl1 + clf$fuppl2 + clf$fuppl3
 clf$fuprat<-clf$fuptotal/clf$fupst
+for(i in 1:nrow(clf)){if (clf$fuprat[i]==0){clf$fuprat[i]=.000001}}
 sumfuprat<-vector()
 for(i in 1:max(clf$race.number)){sumfuprat[i]=sum(subset(clf, race.number==i) $fuprat)}
 clf$fupratprob<-clf$fuprat/sumfuprat[clf$race.number]
@@ -145,6 +147,7 @@ View(clf)
 
 clf$suptotal<-clf$suppl1 + clf$suppl2 + clf$suppl3
 clf$suprat<-clf$suptotal/clf$secst
+for(i in 1:nrow(clf)){if (clf$suprat[i]==0){clf$suprat[i]=.000001}}
 sumsuprat<-vector()
 for(i in 1:max(clf$race.number)){sumsuprat[i]=sum(subset(clf, race.number==i) $suprat)}
 clf$supratprob<-clf$suprat/sumsuprat[clf$race.number]
@@ -153,6 +156,7 @@ View(clf)
 
 clf$disttotal<-clf$distpl1 + clf$distpl2 + clf$distpl3
 clf$distrat<-clf$disttotal/clf$distst
+for(i in 1:nrow(clf)){if (clf$distrat[i]==0){clf$distrat[i]=.000001}}
 sumdistrat<-vector()
 for(i in 1:max(clf$race.number)){sumdistrat[i]=sum(subset(clf, race.number==i) $distrat)}
 clf$distratprob<-clf$distrat/sumdistrat[clf$race.number]
@@ -161,6 +165,7 @@ View(clf)
 
 clf$tracktotal<-clf$trackpl1 + clf$trackpl2 + clf$trackpl3
 clf$trackrat<-clf$tracktotal/clf$trackst
+for(i in 1:nrow(clf)){if (clf$trackrat[i]==0){clf$trackrat[i]=.000001}}
 sumtrackrat<-vector()
 for(i in 1:max(clf$race.number)){sumtrackrat[i]=sum(subset(clf, race.number==i) $trackrat)}
 clf$trackratprob<-clf$trackrat/sumtrackrat[clf$race.number]
