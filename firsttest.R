@@ -5,7 +5,7 @@ library(survPen)
 library(stringi)
 getwd()
 
-clf<-read.csv("200820_Warrnambool.csv", stringsAsFactors = FALSE)
+clf<-read.csv("200822_Moonee Valley.csv", stringsAsFactors = FALSE)
 clf<-select(clf, meeting.date, track, race.number, distance, horse.name, horse.number, horse.barrier, horse.weight, horse.claim, horse.last10, horse.record, horse.record.distance, horse.record.track, horse.record.first.up, horse.record.second.up, prizemoney)
 clf<-clf %>% distinct(horse.name, .keep_all=TRUE)
 clf<-clf[!(clf$track=="track"),]
@@ -97,7 +97,7 @@ for(i in 1:nrow(clf)){if(clf$l2[i]=="x"){clf$l2[i]="10"}}
 for(i in 1:nrow(clf)){if(clf$l1[i]=="x"){clf$l1[i]="10"}}
 for(i in 1:nrow(clf)){if(clf$l2[i]=="0"){clf$l2[i]="10"}}
 for(i in 1:nrow(clf)){if(clf$l1[i]=="0"){clf$l1[i]="10"}}
-clf[,11:12]<-sapply(clf[,11:12], as.numeric)
+clf[,36:37]<-sapply(clf[,36:37], as.numeric)
 for(i in 1:nrow(clf)){if(clf$l2[i]<=clf$l1[i]){clf$l1[i]=clf$l2[i]}}
 for(i in 1:nrow(clf)){
   if(clf$l1[i]==1){
@@ -195,9 +195,11 @@ clf$rceno<-clf$race.number
 clf$hse<-clf$horse.name
 clf$hseno<-clf$horse.number
 
-clf<-arrange(clf, rceno, price)
+# clf<-arrange(clf, rceno, price)
+View(clf)
 
 clf1<-clf[ , c("rceno", "hseno", "hse", "price")]
+
 # write.csv(clf1,"/Users/nleidig/Desktop/testrce.csv")
 write.csv(clf1,"/Users/nicholasleidig/Desktop/testrce.csv")
 
