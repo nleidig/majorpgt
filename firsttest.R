@@ -198,5 +198,6 @@ clf$hseno<-clf$horse.number
 clf<-arrange(clf, rceno, price)
 
 clf1<-clf[ , c("rceno", "hseno", "hse", "price")]
-write.csv(clf1,"/Users/nleidig/Desktop/testrce.csv")
+# write.csv(clf1,"/Users/nleidig/Desktop/testrce.csv")
+write.csv(clf1,"/Users/nicholasleidig/Desktop/testrce.csv")
 
