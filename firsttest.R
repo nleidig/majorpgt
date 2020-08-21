@@ -195,11 +195,11 @@ clf$rceno<-clf$race.number
 clf$hse<-clf$horse.name
 clf$hseno<-clf$horse.number
 
-# clf<-arrange(clf, rceno, price)
+clf<-arrange(clf, rceno, price)
 View(clf)
 
 clf1<-clf[ , c("rceno", "hseno", "hse", "price")]
 
-# write.csv(clf1,"/Users/nleidig/Desktop/testrce.csv")
-write.csv(clf1,"/Users/nicholasleidig/Desktop/testrce.csv")
+write.csv(clf1,"/Users/nleidig/Desktop/testrce.csv")
+# write.csv(clf1,"/Users/nicholasleidig/Desktop/testrce.csv")
 
