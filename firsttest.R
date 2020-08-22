@@ -5,7 +5,7 @@ library(survPen)
 library(stringi)
 getwd()
 
-clf<-read.csv("200822_Moonee Valley.csv", stringsAsFactors = FALSE)
+clf<-read.csv("200822_Morphettville.csv", stringsAsFactors = FALSE)
 clf<-select(clf, meeting.date, track, race.number, distance, horse.name, horse.number, horse.barrier, horse.weight, horse.claim, horse.last10, horse.record, horse.record.distance, horse.record.track, horse.record.first.up, horse.record.second.up, prizemoney)
 clf<-clf %>% distinct(horse.name, .keep_all=TRUE)
 clf<-clf[!(clf$track=="track"),]
@@ -200,6 +200,6 @@ View(clf)
 
 clf1<-clf[ , c("rceno", "hseno", "hse", "price")]
 
-write.csv(clf1,"/Users/nleidig/Desktop/testrce.csv")
-# write.csv(clf1,"/Users/nicholasleidig/Desktop/testrce.csv")
-
+# write.csv(clf1,"/Users/nleidig/Desktop/testrce.csv")
+write.csv(clf1,"/Users/nicholasleidig/Desktop/testrce.csv")
+View clf1
