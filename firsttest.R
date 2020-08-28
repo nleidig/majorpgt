@@ -3,9 +3,10 @@ library(tidyr)
 library(stringr)
 library(survPen)
 library(stringi)
+library("corrplot")
 getwd()
 
-clf<-read.csv("200823_Sunshine Coast.csv", stringsAsFactors = FALSE)
+clf<-read.csv("200827_Northam.csv", stringsAsFactors = FALSE)
 clf<-select(clf, meeting.date, track, race.number, distance, horse.name, horse.number, horse.barrier, horse.weight, horse.claim, horse.last10, horse.record, horse.record.distance, horse.record.track, horse.record.first.up, horse.record.second.up, prizemoney)
 clf<-clf %>% distinct(horse.name, .keep_all=TRUE)
 clf<-clf[!(clf$track=="track"),]
@@ -188,18 +189,25 @@ clf$hseprob<-clf$prob/sumprob[clf$race.number]
 View(clf)
 # Check prob: sum(subset(clf,race.number=="1") $hseprob)
 
-clf$price<-(1/clf$hseprob-1)*2
+
+clf$price<-(1/clf$hseprob-1)*10
 clf$price<-floor(clf$price)
-clf$price<-clf$price/2
+clf$price<-clf$price/10
 clf$rceno<-clf$race.number
 clf$hse<-clf$horse.name
 clf$hseno<-clf$horse.number
-
 clf<-arrange(clf, rceno, price)
 View(clf)
 
 clf1<-clf[ , c("rceno", "hseno", "hse", "price")]
 
-# write.csv(clf1,"/Users/nleidig/Desktop/testrce.csv")
-write.csv(clf1,"/Users/nicholasleidig/Desktop/testrce.csv")
+write.csv(clf1,"/Users/nleidig/Desktop/testrce.csv")
+# write.csv(clf1,"/Users/nicholasleidig/Desktop/testrce.csv")
 View (clf1)
+
+# clf2<-clf[c(34,38,40,42,45,47,51,54,57,60,63,65)]
+# View(clf2)
+
+# corrplot(corrMatrix, method = "number")
+
+
