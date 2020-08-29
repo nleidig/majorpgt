@@ -7,7 +7,7 @@ library("corrplot")
 getwd()
 
 clf<-read.csv("200829_Caulfield.csv", stringsAsFactors = FALSE)
-clf<-select(clf, meeting.date, track, race.number, distance, horse.name, horse.number, horse.barrier, horse.weight, horse.claim, horse.last10, horse.record, horse.record.distance, horse.record.track, horse.record.first.up, horse.record.second.up, prizemoney)
+clf<-clf<-select(clf, meeting.date, track, race.number, distance, horse.name, horse.number, horse.barrier, horse.weight, horse.claim, horse.last10, horse.record, horse.record.distance, horse.record.track, horse.record.first.up, horse.record.second.up, prizemoney)
 clf<-clf %>% distinct(horse.name, .keep_all=TRUE)
 clf<-clf[!(clf$track=="track"),]
 View(clf)
@@ -210,4 +210,7 @@ View (clf1)
 
 # corrplot(corrMatrix, method = "number")
 
-
+# clfb<-read.csv("200725_Caulfield.csv", stringsAsFactors = FALSE)
+# clfa<-read.csv("200829_Caulfield.csv", stringsAsFactors = FALSE)
+# foo<-list(clfa, clfb)
+# clfc<-do.call(rbind(,foo))
