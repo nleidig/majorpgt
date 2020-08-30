@@ -214,3 +214,7 @@ View (clf1)
 # clfa<-read.csv("200829_Caulfield.csv", stringsAsFactors = FALSE)
 # foo<-list(clfa, clfb)
 # clfc<-do.call(rbind(,foo))
+
+# clf1$result<-clf1$price
+
+
