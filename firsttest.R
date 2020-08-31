@@ -217,4 +217,6 @@ View (clf1)
 
 # clf1$result<-clf1$price
 
+# clfadd<-read.csv("Untitled spreadsheet - Sheet1 (1).csv", stringsAsFactors = FALSE)
 
+# clf1$endup<-clfadd$X1.13[match(clf1$hse, clfadd$Behemoth)]
