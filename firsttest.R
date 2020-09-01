@@ -217,6 +217,7 @@ View (clf1)
 
 # clf1$result<-clf1$price
 
+<<<<<<< HEAD
 clfrslt<-read.csv("Untitled spreadsheet - Sheet1.csv", stringsAsFactors = FALSE)
 View(clfrslt)
 dfrslt <- data.frame(t(clfrslt))
@@ -227,3 +228,8 @@ clf$lth<-dfrslt$X2[match(clf$horse.name, dfrslt$X4)]
 clf$sp<-dfrslt$X11[match(clf$horse.name, dfrslt$X4)]
 clf %>% mutate_if(is.factor, as.character) ->clf
 View(clf)
+
+# clfadd<-read.csv("Untitled spreadsheet - Sheet1 (1).csv", stringsAsFactors = FALSE)
+
+# clf1$endup<-clfadd$X1.13[match(clf1$hse, clfadd$Behemoth)]
+
