@@ -217,7 +217,6 @@ View (clf1)
 
 # clf1$result<-clf1$price
 
-<<<<<<< HEAD
 clfrslt<-read.csv("Untitled spreadsheet - Sheet1.csv", stringsAsFactors = FALSE)
 View(clfrslt)
 dfrslt <- data.frame(t(clfrslt))
@@ -227,9 +226,15 @@ clf$fin<-dfrslt$X1[match(clf$horse.name, dfrslt$X4)]
 clf$lth<-dfrslt$X2[match(clf$horse.name, dfrslt$X4)]
 clf$sp<-dfrslt$X11[match(clf$horse.name, dfrslt$X4)]
 clf %>% mutate_if(is.factor, as.character) ->clf
+clf[128, 73]="0" 
 View(clf)
+
+clf<-clf[-c(125),]
 
 # clfadd<-read.csv("Untitled spreadsheet - Sheet1 (1).csv", stringsAsFactors = FALSE)
 
 # clf1$endup<-clfadd$X1.13[match(clf1$hse, clfadd$Behemoth)]
+
+library(corrplot)
+corrMatrix<cor(x)
 
