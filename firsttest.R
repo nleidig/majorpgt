@@ -201,8 +201,8 @@ View(clf)
 
 clf1<-clf[ , c("rceno", "hseno", "hse", "price")]
 
-# write.csv(clf1,"/Users/nleidig/Desktop/testrce.csv")
-write.csv(clf1,"/Users/nicholasleidig/Desktop/testrce.csv")
+write.csv(clf1,"/Users/nleidig/Desktop/testrce.csv")
+# write.csv(clf1,"/Users/nicholasleidig/Desktop/testrce.csv")
 View (clf1)
 
 # clf2<-clf[c(34,38,40,42,45,47,51,54,57,60,63,65)]
@@ -217,4 +217,13 @@ View (clf1)
 
 # clf1$result<-clf1$price
 
+clfrslt<-read.csv("Untitled spreadsheet - Sheet1.csv", stringsAsFactors = FALSE)
+View(clfrslt)
+dfrslt <- data.frame(t(clfrslt))
+View (dfrslt)
 
+clf$fin<-dfrslt$X1[match(clf$horse.name, dfrslt$X4)]
+clf$lth<-dfrslt$X2[match(clf$horse.name, dfrslt$X4)]
+clf$sp<-dfrslt$X11[match(clf$horse.name, dfrslt$X4)]
+clf %>% mutate_if(is.factor, as.character) ->clf
+View(clf)
