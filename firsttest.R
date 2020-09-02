@@ -6,7 +6,7 @@ library(stringi)
 library("corrplot")
 getwd()
 
-clf<-read.csv("200829_Caulfield.csv", stringsAsFactors = FALSE)
+clf<-read.csv("200903_Ballarat Synthetic.csv", stringsAsFactors = FALSE)
 clf<-clf<-select(clf, meeting.date, track, race.number, distance, horse.name, horse.number, horse.barrier, horse.weight, horse.claim, horse.last10, horse.record, horse.record.distance, horse.record.track, horse.record.first.up, horse.record.second.up, prizemoney)
 clf<-clf %>% distinct(horse.name, .keep_all=TRUE)
 clf<-clf[!(clf$track=="track"),]
@@ -17,6 +17,8 @@ clf$last2<-str_sub(clf$horse.last10, -2, -1)
 clf<-clf[c(1,2,3,4,5,6,7,8,9,10,18,11,12,13,14,15,16,17)]
 clf[,7]<-sapply(clf[,7], as.numeric)
 View(clf)
+
+# Remove scr clf<-clf[-c(1:13),] for range / clf<-clf[-c(4),] for single
 
 clf[,3]<-sapply(clf[,3], as.numeric)
 
@@ -198,7 +200,7 @@ clf$hse<-clf$horse.name
 clf$hseno<-clf$horse.number
 clf<-arrange(clf, rceno, price)
 View(clf)
-
+#-------------------------------------------------------
 clf1<-clf[ , c("rceno", "hseno", "hse", "price")]
 
 write.csv(clf1,"/Users/nleidig/Desktop/testrce.csv")
@@ -222,7 +224,7 @@ View(clfrslt)
 dfrslt <- data.frame(t(clfrslt))
 View (dfrslt)
 
-clf$fin<-dfrslt$X1[match(clf$horse.name, dfrslt$X4)]
+clf$finish<-results$X[match(clf$horse.number, results$X2)]
 clf$lth<-dfrslt$X2[match(clf$horse.name, dfrslt$X4)]
 clf$sp<-dfrslt$X11[match(clf$horse.name, dfrslt$X4)]
 clf %>% mutate_if(is.factor, as.character) ->clf
@@ -236,5 +238,14 @@ clf<-clf[-c(125),]
 # clf1$endup<-clfadd$X1.13[match(clf1$hse, clfadd$Behemoth)]
 
 library(corrplot)
-corrMatrix<cor(x)
+corrMatrix<-cor(clf)
+corrplot(M, method="circle", mar=c(1,1,1,1))
+corrplot(M, method="circle", mar=c(3,3,3,3))
+corrplot(corrMatrix,method = "ellipse")
 
+clf[,6]<-sapply(clf[,6], as.numeric)
+clf[,6] <- as.numeric(as.character(clf[,6]))
+clf$finish<-results$X[match(clf$horse.number, results$X.2)]
+View(clf$finish)
+
+clf<-na.omit(clf)
