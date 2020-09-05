@@ -6,7 +6,11 @@ library(stringi)
 library("corrplot")
 getwd()
 
+<<<<<<< HEAD
 clf<-read.csv("200905_Randwick.csv", stringsAsFactors = FALSE)
+=======
+clf<-read.csv("200903_Ballarat Synthetic.csv", stringsAsFactors = FALSE)
+>>>>>>> 25dfe1d44214da5167360321ce5e28ca3ffc4a05
 clf<-clf<-select(clf, meeting.date, track, race.number, distance, horse.name, horse.number, horse.barrier, horse.weight, horse.claim, horse.last10, horse.record, horse.record.distance, horse.record.track, horse.record.first.up, horse.record.second.up, prizemoney)
 clf<-clf %>% distinct(horse.name, .keep_all=TRUE)
 clf<-clf[!(clf$track=="track"),]
@@ -17,6 +21,8 @@ clf$last2<-str_sub(clf$horse.last10, -2, -1)
 clf<-clf[c(1,2,3,4,5,6,7,8,9,10,18,11,12,13,14,15,16,17)]
 clf[,7]<-sapply(clf[,7], as.numeric)
 View(clf)
+
+# Remove scr clf<-clf[-c(1:13),] / clf<-clf[clf$horse.name != "Abated", ] for single
 
 clf[,3]<-sapply(clf[,3], as.numeric)
 
@@ -198,25 +204,76 @@ clf$hse<-clf$horse.name
 clf$hseno<-clf$horse.number
 clf<-arrange(clf, rceno, price)
 View(clf)
+#-------------------------------------------------------
 
 clf1<-clf[ , c("rceno", "hseno", "hse", "price")]
-
-# write.csv(clf1,"/Users/nleidig/Desktop/testrce.csv")
-write.csv(clf1,"/Users/nicholasleidig/Desktop/testrce.csv")
+write.csv(clf1,"/Users/nleidig/Desktop/testrce.csv")
+# write.csv(clf1,"/Users/nicholasleidig/Desktop/testrce.csv")
 View (clf1)
+#-------------------------------------------------------
 
+# General reference
 # clf2<-clf[c(34,38,40,42,45,47,51,54,57,60,63,65)]
 # View(clf2)
-
 # corrplot(corrMatrix, method = "number")
+#-------------------------------------------------------
 
+# General reference
 # clfb<-read.csv("200725_Caulfield.csv", stringsAsFactors = FALSE)
 # clfa<-read.csv("200829_Caulfield.csv", stringsAsFactors = FALSE)
 # foo<-list(clfa, clfb)
 # clfc<-do.call(rbind(,foo))
-
 # clf1$result<-clf1$price
+#-------------------------------------------------------
 
+# General reference
+clfrslt<-read.csv("Untitled spreadsheet - Sheet1.csv", stringsAsFactors = FALSE)
+View(clfrslt)
+dfrslt <- data.frame(t(clfrslt))
+View (dfrslt)
+clf$finish<-results$X[match(clf$horse.number, results$X.2)]
+clf$lth<-dfrslt$X2[match(clf$horse.name, dfrslt$X.4)]
+clf$sp<-dfrslt$X11[match(clf$horse.name, dfrslt$X.4)]
+clf %>% mutate_if(is.factor, as.character) ->clf
+clf[128, 73]="0" 
+clf<-clf[-c(125),]
+View(clf)
+#-------------------------------------------------------
+
+# General reference
 # clfadd<-read.csv("Untitled spreadsheet - Sheet1 (1).csv", stringsAsFactors = FALSE)
-
 # clf1$endup<-clfadd$X1.13[match(clf1$hse, clfadd$Behemoth)]
+library(corrplot)
+corrMatrix<-cor(clf)
+corrplot(M, method="circle", mar=c(1,1,1,1))
+corrplot(M, method="circle", mar=c(3,3,3,3))
+corrplot(corrMatrix,method = "ellipse")
+clf[,6]<-sapply(clf[,6], as.numeric)
+clf[,6] <- as.numeric(as.character(clf[,6]))
+clf$finish<-results$X[match(clf$horse.number, results$X.2)]
+clf<-na.omit(clf)
+View(clf$finish)
+#-------------------------------------------------------
+
+# Look at the file and make sure it is in the correct format FIRST
+# Then change event numbers and step through the program
+clfrslt<-read.csv("rce6.csv", stringsAsFactors = FALSE)
+View(clfrslt)
+# check what columns to remove
+clfrslt<-clfrslt[,-c(5:10)]
+clfrslt[1, 2]="0" 
+clfrslt<-separate(data=clfrslt, col=X1, into=c("placing", "discard"), sep="-")
+clfrslt<-clfrslt[,-c(2)]
+clfrslt[,1]<-sapply(clfrslt[,1], as.numeric)
+clfrslt$X11<-sub('.', '', clfrslt$X11)
+# filter clf to required event
+clf5<-filter(clf, race.number==5)
+# append clfrslt to clf
+clf5[,6]<-sapply(clf5[,6], as.numeric)
+clf5$placed<-clfrslt$placing[match(clf5$horse.number, clfrslt$X3)]
+clf5$lengths<-clfrslt$X2[match(clf5$horse.number, clfrslt$X3)]
+clf5$sprice<-clfrslt$X11[match(clf5$horse.number, clfrslt$X3)]
+View(clf5)
+#-------------------------------------------------------
+
+
