@@ -6,11 +6,7 @@ library(stringi)
 library("corrplot")
 getwd()
 
-<<<<<<< HEAD
-clf<-read.csv("200905_Randwick.csv", stringsAsFactors = FALSE)
-=======
 clf<-read.csv("200903_Ballarat Synthetic.csv", stringsAsFactors = FALSE)
->>>>>>> 25dfe1d44214da5167360321ce5e28ca3ffc4a05
 clf<-clf<-select(clf, meeting.date, track, race.number, distance, horse.name, horse.number, horse.barrier, horse.weight, horse.claim, horse.last10, horse.record, horse.record.distance, horse.record.track, horse.record.first.up, horse.record.second.up, prizemoney)
 clf<-clf %>% distinct(horse.name, .keep_all=TRUE)
 clf<-clf[!(clf$track=="track"),]
