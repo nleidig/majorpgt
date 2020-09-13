@@ -15,7 +15,7 @@ library(stringi)
 library("corrplot")
 getwd()
 
-clf<-read.csv("200903_Ballarat Synthetic.csv", stringsAsFactors = FALSE)
+clf<-read.csv("200910_Mornington.csv", stringsAsFactors = FALSE)
 clf<-clf<-select(clf, meeting.date, track, race.number, distance, horse.name, horse.number, horse.barrier, horse.weight, horse.claim, horse.last10, horse.record, horse.record.distance, horse.record.track, horse.record.first.up, horse.record.second.up, prizemoney)
 clf<-clf %>% distinct(horse.name, .keep_all=TRUE)
 clf<-clf[!(clf$track=="track"),]
@@ -222,7 +222,7 @@ View (clf1)
 # General reference
 # clf2<-clf[c(34,38,40,42,45,47,51,54,57,60,63,65)]
 # View(clf2)
-# corrplot(corrMatrix, method = "number")
+# corrplot(data.matrix(clf2), method = "number")
 #-------------------------------------------------------
 
 # General reference
