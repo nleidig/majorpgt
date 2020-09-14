@@ -6,7 +6,7 @@ library(stringi)
 library("corrplot")
 getwd()
 
-clf<-read.csv("200903_Ballarat Synthetic.csv", stringsAsFactors = FALSE)
+clf<-read.csv("200912_Flemington.csv", stringsAsFactors = FALSE)
 clf<-clf<-select(clf, meeting.date, track, race.number, distance, horse.name, horse.number, horse.barrier, horse.weight, horse.claim, horse.last10, horse.record, horse.record.distance, horse.record.track, horse.record.first.up, horse.record.second.up, prizemoney)
 clf<-clf %>% distinct(horse.name, .keep_all=TRUE)
 clf<-clf[!(clf$track=="track"),]
