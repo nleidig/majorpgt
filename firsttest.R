@@ -1,3 +1,12 @@
+# Major meeting
+# Run code to line 16
+# Remove Scratchings
+# Run rest of code to line 214
+# Ignore any event with first starters
+# Best top rating for place
+# Split up into valid events
+# Attach Results
+
 library(dplyr)
 library(tidyr)
 library(stringr)
@@ -6,11 +15,17 @@ library(stringi)
 library("corrplot")
 getwd()
 
+<<<<<<< HEAD
 clf<-read.csv("200912_Flemington.csv", stringsAsFactors = FALSE)
+=======
+clf<-read.csv("200910_Mornington.csv", stringsAsFactors = FALSE)
+>>>>>>> f5d3acf704cc7d90f977d33ab015f3f9d92852ab
 clf<-clf<-select(clf, meeting.date, track, race.number, distance, horse.name, horse.number, horse.barrier, horse.weight, horse.claim, horse.last10, horse.record, horse.record.distance, horse.record.track, horse.record.first.up, horse.record.second.up, prizemoney)
 clf<-clf %>% distinct(horse.name, .keep_all=TRUE)
 clf<-clf[!(clf$track=="track"),]
 View(clf)
+# Remove scratchings
+# clf<-clf[!(clf$horse.name=="Complacent"),]
 
 clf<-separate(data=clf, col=horse.record, into=c("starts", "placings"), sep=":")
 clf$last2<-str_sub(clf$horse.last10, -2, -1)
@@ -211,7 +226,7 @@ View (clf1)
 # General reference
 # clf2<-clf[c(34,38,40,42,45,47,51,54,57,60,63,65)]
 # View(clf2)
-# corrplot(corrMatrix, method = "number")
+# corrplot(data.matrix(clf2), method = "number")
 #-------------------------------------------------------
 
 # General reference
