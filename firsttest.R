@@ -15,11 +15,8 @@ library(stringi)
 library("corrplot")
 getwd()
 
-<<<<<<< HEAD
-clf<-read.csv("200912_Flemington.csv", stringsAsFactors = FALSE)
-=======
-clf<-read.csv("200910_Mornington.csv", stringsAsFactors = FALSE)
->>>>>>> f5d3acf704cc7d90f977d33ab015f3f9d92852ab
+
+clf<-read.csv("200919_Caulfield.csv", stringsAsFactors = FALSE)
 clf<-clf<-select(clf, meeting.date, track, race.number, distance, horse.name, horse.number, horse.barrier, horse.weight, horse.claim, horse.last10, horse.record, horse.record.distance, horse.record.track, horse.record.first.up, horse.record.second.up, prizemoney)
 clf<-clf %>% distinct(horse.name, .keep_all=TRUE)
 clf<-clf[!(clf$track=="track"),]
@@ -197,8 +194,17 @@ sumwgtrat<-vector()
 for(i in 1:max(clf$race.number)){sumwgtrat[i]=sum(subset(clf, race.number==i) $wgtrat)}
 clf$wgtratprob<-clf$wgtrat/sumwgtrat[clf$race.number]
 View(clf)
-# Check prob: sum(subset(clf,race.number=="1") $wgtratprob)
+# Checkrceno<-clf$race.number
+clf$hse<-clf$horse.name
+clf$hseno<-clf$horse.number
+# clf<-arrange(clf, rceno, price)
+View(clf)
+#-------------------------------------------------------
 
+clf1<-clf[ , c("rceno", "hseno", "hse", "price")]
+#write.csv(clf1,"/Users/nleidig/Desktop/testrce.csv")
+write.csv(clf1,"/Users/nicholasleidig/Desktop/testrce.csv")
+View (clf1) 
 clf$prob<-clf$prizeratprob+clf$spellratprob+clf$startsratprob+clf$winratprob+clf$placeratprob+clf$barrierratprob+clf$lastratprob+clf$fupratprob+clf$supratprob+clf$distratprob+clf$trackratprob+clf$wgtratprob
 sumprob<-vector()
 for(i in 1:max(clf$race.number)){sumprob[i]=sum(subset(clf, race.number==i) $prob)}
@@ -210,17 +216,8 @@ View(clf)
 clf$price<-(1/clf$hseprob-1)*10
 clf$price<-floor(clf$price)
 clf$price<-clf$price/10
-clf$rceno<-clf$race.number
-clf$hse<-clf$horse.name
-clf$hseno<-clf$horse.number
-clf<-arrange(clf, rceno, price)
-View(clf)
-#-------------------------------------------------------
+# clf$prob: sum(subset(clf,race.number=="1") $wgtratprob)
 
-clf1<-clf[ , c("rceno", "hseno", "hse", "price")]
-write.csv(clf1,"/Users/nleidig/Desktop/testrce.csv")
-# write.csv(clf1,"/Users/nicholasleidig/Desktop/testrce.csv")
-View (clf1)
 #-------------------------------------------------------
 
 # General reference
