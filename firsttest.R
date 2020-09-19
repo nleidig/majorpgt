@@ -125,7 +125,7 @@ for(i in 1:nrow(clf)){
     clf$lastrat[i]="4"
   }else if (clf$l1[i]==5){
     clf$lastrat[i]="3"
-  }else if (clf$l1==6){
+  }else if (clf$l1[i]==6){
     clf$lastrat="2"
   }else if (clf$l1[i]>=7){
     clf$lastrat[i]="1"
@@ -197,14 +197,10 @@ View(clf)
 # Checkrceno<-clf$race.number
 clf$hse<-clf$horse.name
 clf$hseno<-clf$horse.number
-# clf<-arrange(clf, rceno, price)
 View(clf)
 #-------------------------------------------------------
 
-clf1<-clf[ , c("rceno", "hseno", "hse", "price")]
-#write.csv(clf1,"/Users/nleidig/Desktop/testrce.csv")
-write.csv(clf1,"/Users/nicholasleidig/Desktop/testrce.csv")
-View (clf1) 
+ 
 clf$prob<-clf$prizeratprob+clf$spellratprob+clf$startsratprob+clf$winratprob+clf$placeratprob+clf$barrierratprob+clf$lastratprob+clf$fupratprob+clf$supratprob+clf$distratprob+clf$trackratprob+clf$wgtratprob
 sumprob<-vector()
 for(i in 1:max(clf$race.number)){sumprob[i]=sum(subset(clf, race.number==i) $prob)}
@@ -212,12 +208,18 @@ clf$hseprob<-clf$prob/sumprob[clf$race.number]
 View(clf)
 # Check prob: sum(subset(clf,race.number=="1") $hseprob)
 
-
 clf$price<-(1/clf$hseprob-1)*10
 clf$price<-floor(clf$price)
 clf$price<-clf$price/10
+clf<-arrange(clf, race.number, price)
+View(clf)
+
 # clf$prob: sum(subset(clf,race.number=="1") $wgtratprob)
 
+clf1<-clf[ , c("race.number", "hseno", "hse", "price")]
+#write.csv(clf1,"/Users/nleidig/Desktop/testrce.csv")
+write.csv(clf1,"/Users/nicholasleidig/Desktop/testrce.csv")
+View (clf1)
 #-------------------------------------------------------
 
 # General reference
