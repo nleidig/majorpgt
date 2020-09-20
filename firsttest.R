@@ -236,11 +236,13 @@ View (clf1)
 # clf1$result<-clf1$price
 #-------------------------------------------------------
 
-# General reference
-clfrslt<-read.csv("Untitled spreadsheet - Sheet1.csv", stringsAsFactors = FALSE)
+# Results analysis and append to clf
+clfrslt<-read.csv("200919_Caulfield_R8_results.csv", stringsAsFactors = FALSE)
 View(clfrslt)
 dfrslt <- data.frame(t(clfrslt))
+dfrslt<-t(dfrslt)
 View (dfrslt)
+# Subset clf to relevant event before appending
 clf$finish<-results$X[match(clf$horse.number, results$X.2)]
 clf$lth<-dfrslt$X2[match(clf$horse.name, dfrslt$X.4)]
 clf$sp<-dfrslt$X11[match(clf$horse.name, dfrslt$X.4)]
