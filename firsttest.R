@@ -217,75 +217,141 @@ View(clf)
 # clf$prob: sum(subset(clf,race.number=="1") $wgtratprob)
 
 clf1<-clf[ , c("race.number", "hseno", "hse", "price")]
-#write.csv(clf1,"/Users/nleidig/Desktop/testrce.csv")
-write.csv(clf1,"/Users/nicholasleidig/Desktop/testrce.csv")
+write.csv(clf1,"/Users/nleidig/Desktop/testrce.csv")
+# write.csv(clf1,"/Users/nicholasleidig/Desktop/testrce.csv")
 View (clf1)
 #-------------------------------------------------------
 
-# General reference
-# clf2<-clf[c(34,38,40,42,45,47,51,54,57,60,63,65)]
-# View(clf2)
-# corrplot(data.matrix(clf2), method = "number")
+# Results analysis and append to clf
+dfrslt<-read.csv("200919_Caulfield_R5_results.csv", stringsAsFactors = FALSE)
+View(dfrslt)
+t(dfrslt) # check if needed
+as.data.frame(dfrslt) ### IMPORTANT # check if needed
+View (dfrslt)
+# Subset clf to relevant event before appending
+clf5<-clf[(clf$race.number==5),]
+View(clf5)
+# Remove scratchings and fix format
+# clf6<-clf6[!(clf6$horse.number=="19"),] Later - remove n/a
+dfrslt<-separate(data=dfrslt, col=Pos, into=c("placing", "discard"), sep="-")
+dfrslt[,1]<-sapply(dfrslt[,1], as.numeric)
+dfrslt[,4]<-sapply(dfrslt[,4], as.numeric)
+# append
+clf5$finish<-dfrslt$placing[match(clf5$hseno, dfrslt$No)]
+clf5$lth<-dfrslt$Margin[match(clf5$hseno, dfrslt$No)]
+clf5$sp<-dfrslt$Price[match(clf5$hseno, dfrslt$No)]
+clf5 <- na.omit(clf5) # Removes scratchings
+for(i in 1:nrow(clf5)){if (clf5$finish[i]==1){clf5$lth[i]=0}}
+View(clf5)
 #-------------------------------------------------------
-
-# General reference
-# clfb<-read.csv("200725_Caulfield.csv", stringsAsFactors = FALSE)
-# clfa<-read.csv("200829_Caulfield.csv", stringsAsFactors = FALSE)
-# foo<-list(clfa, clfb)
-# clfc<-do.call(rbind(,foo))
-# clf1$result<-clf1$price
+# Results analysis and append to clf
+dfrslt<-read.csv("200919_Caulfield_R6_results.csv", stringsAsFactors = FALSE)
+View(dfrslt)
+t(dfrslt) # check if needed
+as.data.frame(dfrslt) ### IMPORTANT # check if needed
+View (dfrslt)
+# Subset clf to relevant event before appending
+clf6<-clf[(clf$race.number==6),]
+View(clf6)
+# Remove scratchings and fix format
+# clf6<-clf6[!(clf6$horse.number=="19"),] Later - remove n/a
+dfrslt<-separate(data=dfrslt, col=Pos, into=c("placing", "discard"), sep="-")
+dfrslt[,1]<-sapply(dfrslt[,1], as.numeric)
+dfrslt[,4]<-sapply(dfrslt[,4], as.numeric)
+# append
+clf6$finish<-dfrslt$placing[match(clf6$hseno, dfrslt$No)]
+clf6$lth<-dfrslt$Margin[match(clf6$hseno, dfrslt$No)]
+clf6$sp<-dfrslt$Price[match(clf6$hseno, dfrslt$No)]
+clf6 <- na.omit(clf6)
+for(i in 1:nrow(clf6)){if (clf6$finish[i]==1){clf6$lth[i]=0}}
+View(clf6)
 #-------------------------------------------------------
 
 # Results analysis and append to clf
-clfrslt<-read.csv("200919_Caulfield_R8_results.csv", stringsAsFactors = FALSE)
-View(clfrslt)
-dfrslt <- data.frame(t(clfrslt))
-dfrslt<-t(dfrslt)
+dfrslt<-read.csv("200919_Caulfield_R7_results.csv", stringsAsFactors = FALSE)
+View(dfrslt)
+t(dfrslt)
+as.data.frame(dfrslt) ### IMPORTANT
 View (dfrslt)
 # Subset clf to relevant event before appending
-clf$finish<-results$X[match(clf$horse.number, results$X.2)]
-clf$lth<-dfrslt$X2[match(clf$horse.name, dfrslt$X.4)]
-clf$sp<-dfrslt$X11[match(clf$horse.name, dfrslt$X.4)]
-clf %>% mutate_if(is.factor, as.character) ->clf
-clf[128, 73]="0" 
-clf<-clf[-c(125),]
-View(clf)
+clf7<-clf[(clf$race.number==7),]
+View(clf7)
+# Remove scratchings and fix format
+# clf7<-clf7[!(clf7$horse.number=="19"),] Later - remove n/a
+dfrslt<-separate(data=dfrslt, col=Pos, into=c("placing", "discard"), sep="-")
+dfrslt[,1]<-sapply(dfrslt[,1], as.numeric)
+dfrslt[,4]<-sapply(dfrslt[,4], as.numeric)
+# append
+clf7$finish<-dfrslt$placing[match(clf7$hseno, dfrslt$No)]
+clf7$lth<-dfrslt$Margin[match(clf7$hseno, dfrslt$No)]
+clf7$sp<-dfrslt$Price[match(clf7$hseno, dfrslt$No)]
+for(i in 1:nrow(clf7)){if (clf7$finish[i]==1){clf7$lth[i]=0}}
+clf7 <- na.omit(clf7) 
+View(clf7)
 #-------------------------------------------------------
 
-# General reference
-# clfadd<-read.csv("Untitled spreadsheet - Sheet1 (1).csv", stringsAsFactors = FALSE)
-# clf1$endup<-clfadd$X1.13[match(clf1$hse, clfadd$Behemoth)]
-library(corrplot)
-corrMatrix<-cor(clf)
-corrplot(M, method="circle", mar=c(1,1,1,1))
-corrplot(M, method="circle", mar=c(3,3,3,3))
-corrplot(corrMatrix,method = "ellipse")
-clf[,6]<-sapply(clf[,6], as.numeric)
-clf[,6] <- as.numeric(as.character(clf[,6]))
-clf$finish<-results$X[match(clf$horse.number, results$X.2)]
-clf<-na.omit(clf)
-View(clf$finish)
+# Results analysis and append to clf
+dfrslt<-read.csv("200919_Caulfield_R8_results.csv", stringsAsFactors = FALSE)
+View(dfrslt)
+t(dfrslt)
+as.data.frame(dfrslt) ### IMPORTANT
+View (dfrslt)
+# Subset clf to relevant event before appending
+clf8<-clf[(clf$race.number==8),]
+View(clf8)
+# Remove scratchings and fix format
+# rownames(clf8) <- NULL probably not needed
+clf8<-clf8[!(clf8$horse.number=="19"),]
+dfrslt<-separate(data=dfrslt, col=Pos, into=c("placing", "discard"), sep="-")
+dfrslt[,1]<-sapply(dfrslt[,1], as.numeric)
+dfrslt[,4]<-sapply(dfrslt[,4], as.numeric)
+# append
+clf8$finish<-dfrslt$placing[match(clf8$hseno, dfrslt$No)]
+for(i in 1:nrow(clf8)){if (clf8$finish[i]==1){clf8$lth[i]=0}}
+clf8$lth<-dfrslt$Margin[match(clf8$hseno, dfrslt$No)]
+clf8$sp<-dfrslt$Price[match(clf8$hseno, dfrslt$No)]
+# clf %>% mutate_if(is.factor, as.character) ->clf
+# clf<-clf[-c(125),]
+View(clf8)
+#-------------------------------------------------------
+# Results analysis and append to clf
+dfrslt<-read.csv("200919_Caulfield_R9_results.csv", stringsAsFactors = FALSE)
+View(dfrslt)
+t(dfrslt) # May not need
+as.data.frame(dfrslt) ### IMPORTANT but may not need
+View (dfrslt)
+# Subset clf to relevant event before appending
+clf9<-clf[(clf$race.number==9),]
+View(clf9)
+# Remove scratchings and fix format
+# rownames(clf9) <- NULL probably not needed
+clf9<-clf9[!(clf9$horse.number=="19"),] # may combine in next step
+dfrslt<-separate(data=dfrslt, col=Pos, into=c("placing", "discard"), sep="-")
+dfrslt[,1]<-sapply(dfrslt[,1], as.numeric)
+dfrslt[,4]<-sapply(dfrslt[,4], as.numeric)
+View (dfrslt)
+# append
+clf9$finish<-dfrslt$placing[match(clf9$hseno, dfrslt$No)]
+clf9$lth<-dfrslt$Margin[match(clf9$hseno, dfrslt$No)]
+clf9$sp<-dfrslt$Price[match(clf9$hseno, dfrslt$No)]
+# clf %>% mutate_if(is.factor, as.character) ->clf
+# clf<-clf[-c(125),]
+for(i in 1:nrow(clf9)){if (clf9$finish[i]==1){clf9$lth[i]=0}}
+# may need to remove n/a at this stage for scratchings
+View(clf9)
+#-------------------------------------------------------
+clf10 <- rbind(clf5, clf6, clf7, clf8, clf9) # MASTER APPEND
+View(clf10)
 #-------------------------------------------------------
 
-# Look at the file and make sure it is in the correct format FIRST
-# Then change event numbers and step through the program
-clfrslt<-read.csv("rce6.csv", stringsAsFactors = FALSE)
-View(clfrslt)
-# check what columns to remove
-clfrslt<-clfrslt[,-c(5:10)]
-clfrslt[1, 2]="0" 
-clfrslt<-separate(data=clfrslt, col=X1, into=c("placing", "discard"), sep="-")
-clfrslt<-clfrslt[,-c(2)]
-clfrslt[,1]<-sapply(clfrslt[,1], as.numeric)
-clfrslt$X11<-sub('.', '', clfrslt$X11)
-# filter clf to required event
-clf5<-filter(clf, race.number==5)
-# append clfrslt to clf
-clf5[,6]<-sapply(clf5[,6], as.numeric)
-clf5$placed<-clfrslt$placing[match(clf5$horse.number, clfrslt$X3)]
-clf5$lengths<-clfrslt$X2[match(clf5$horse.number, clfrslt$X3)]
-clf5$sprice<-clfrslt$X11[match(clf5$horse.number, clfrslt$X3)]
-View(clf5)
+# General reference only
+# clf2<-clf[c(34,38,40,42,45,47,51,54,57,60,63,65)]
+# View(clf2)
+# library(corrplot)
+# corrMatrix<-cor(clf2)
+# corrplot(corrMatrix, method = "number")
+# corrplot(corrMatrix,method = "ellipse")
 #-------------------------------------------------------
+
 
 
