@@ -223,7 +223,7 @@ View (clf1)
 #-------------------------------------------------------
 
 # Results analysis and append to clf
-dfrslt<-read.csv("200919_Caulfield_R5_results.csv", stringsAsFactors = FALSE)
+dfrslt<-read.csv("200912_Flemington_R5_results.csv", stringsAsFactors = FALSE)
 View(dfrslt)
 t(dfrslt) # check if needed
 as.data.frame(dfrslt) ### IMPORTANT # check if needed
@@ -245,7 +245,7 @@ for(i in 1:nrow(clf5)){if (clf5$finish[i]==1){clf5$lth[i]=0}}
 View(clf5)
 #-------------------------------------------------------
 # Results analysis and append to clf
-dfrslt<-read.csv("200919_Caulfield_R6_results.csv", stringsAsFactors = FALSE)
+dfrslt<-read.csv("200912_Flemington_R6_results.csv", stringsAsFactors = FALSE)
 View(dfrslt)
 t(dfrslt) # check if needed
 as.data.frame(dfrslt) ### IMPORTANT # check if needed
@@ -340,7 +340,7 @@ for(i in 1:nrow(clf9)){if (clf9$finish[i]==1){clf9$lth[i]=0}}
 clf9 <- na.omit(clf9)
 View(clf9)
 #-------------------------------------------------------
-clf10 <- rbind(clf5, clf6, clf7, clf8, clf9) # MASTER APPEND
+clf10 <- rbind(clf10, clf5, clf6, clf7, clf8, clf9) # MASTER APPEND
 View(clf10)
 #-------------------------------------------------------
 
