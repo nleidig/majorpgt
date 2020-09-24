@@ -16,7 +16,7 @@ library("corrplot")
 getwd()
 
 
-clf<-read.csv("200912_Flemington.csv", stringsAsFactors = FALSE)
+clf<-read.csv("200725_Caulfield.csv", stringsAsFactors = FALSE)
 clf<-clf<-select(clf, meeting.date, track, race.number, distance, horse.name, horse.number, horse.barrier, horse.weight, horse.claim, horse.last10, horse.record, horse.record.distance, horse.record.track, horse.record.first.up, horse.record.second.up, prizemoney)
 clf<-clf %>% distinct(horse.name, .keep_all=TRUE)
 clf<-clf[!(clf$track=="track"),]
@@ -223,7 +223,7 @@ View (clf1)
 #-------------------------------------------------------
 
 # Results analysis and append to clf
-dfrslt<-read.csv("200912_Flemington_R5_results.csv", stringsAsFactors = FALSE)
+dfrslt<-read.csv("200725_Caulfield_R5_results.csv", stringsAsFactors = FALSE)
 View(dfrslt)
 t(dfrslt) # check if needed
 as.data.frame(dfrslt) ### IMPORTANT # check if needed
@@ -236,16 +236,18 @@ View(clf5)
 dfrslt<-separate(data=dfrslt, col=Pos, into=c("placing", "discard"), sep="-")
 dfrslt[,1]<-sapply(dfrslt[,1], as.numeric)
 dfrslt[,4]<-sapply(dfrslt[,4], as.numeric)
+View(dfrslt)
 # append
 clf5$finish<-dfrslt$placing[match(clf5$hseno, dfrslt$No)]
 clf5$lth<-dfrslt$Margin[match(clf5$hseno, dfrslt$No)]
 clf5$sp<-dfrslt$Price[match(clf5$hseno, dfrslt$No)]
+View(clf5)
 clf5 <- na.omit(clf5) # Removes scratchings
 for(i in 1:nrow(clf5)){if (clf5$finish[i]==1){clf5$lth[i]=0}}
 View(clf5)
 #-------------------------------------------------------
 # Results analysis and append to clf
-dfrslt<-read.csv("200912_Flemington_R6_results.csv", stringsAsFactors = FALSE)
+dfrslt<-read.csv("200725_Caulfield_R6_results.csv", stringsAsFactors = FALSE)
 View(dfrslt)
 t(dfrslt) # check if needed
 as.data.frame(dfrslt) ### IMPORTANT # check if needed
@@ -258,17 +260,19 @@ View(clf6)
 dfrslt<-separate(data=dfrslt, col=Pos, into=c("placing", "discard"), sep="-")
 dfrslt[,1]<-sapply(dfrslt[,1], as.numeric)
 dfrslt[,4]<-sapply(dfrslt[,4], as.numeric)
+View(dfrslt)
 # append
 clf6$finish<-dfrslt$placing[match(clf6$hseno, dfrslt$No)]
 clf6$lth<-dfrslt$Margin[match(clf6$hseno, dfrslt$No)]
 clf6$sp<-dfrslt$Price[match(clf6$hseno, dfrslt$No)]
+View(clf6)
 clf6 <- na.omit(clf6)
 for(i in 1:nrow(clf6)){if (clf6$finish[i]==1){clf6$lth[i]=0}}
 View(clf6)
 #-------------------------------------------------------
 
 # Results analysis and append to clf
-dfrslt<-read.csv("200912_Flemington_R7_results.csv", stringsAsFactors = FALSE)
+dfrslt<-read.csv("200725_Caulfield_R7_results.csv", stringsAsFactors = FALSE)
 View(dfrslt)
 t(dfrslt)
 as.data.frame(dfrslt) ### IMPORTANT
@@ -278,20 +282,19 @@ clf7<-clf[(clf$race.number==7),]
 View(clf7)
 # Remove scratchings and fix format
 # clf7<-clf7[!(clf7$horse.number=="19"),] Later - remove n/a
-dfrslt<-separate(data=dfrslt, col=Pos, into=c("placing", "discard"), sep="-")
-dfrslt[,1]<-sapply(dfrslt[,1], as.numeric)
-dfrslt[,4]<-sapply(dfrslt[,4], as.numeric)
+
 # append
 clf7$finish<-dfrslt$placing[match(clf7$hseno, dfrslt$No)]
 clf7$lth<-dfrslt$Margin[match(clf7$hseno, dfrslt$No)]
 clf7$sp<-dfrslt$Price[match(clf7$hseno, dfrslt$No)]
+View(clf7)
 for(i in 1:nrow(clf7)){if (clf7$finish[i]==1){clf7$lth[i]=0}}
 clf7 <- na.omit(clf7) 
 View(clf7)
 #-------------------------------------------------------
 
 # Results analysis and append to clf
-dfrslt<-read.csv("200912_Flemington_R8_results.csv", stringsAsFactors = FALSE)
+dfrslt<-read.csv("200725_Caulfield_R8_results.csv", stringsAsFactors = FALSE)
 View(dfrslt)
 t(dfrslt)
 as.data.frame(dfrslt) ### IMPORTANT
@@ -305,17 +308,18 @@ View(clf8)
 dfrslt<-separate(data=dfrslt, col=Pos, into=c("placing", "discard"), sep="-")
 dfrslt[,1]<-sapply(dfrslt[,1], as.numeric)
 dfrslt[,4]<-sapply(dfrslt[,4], as.numeric)
+View (dfrslt)
 # append
 clf8$finish<-dfrslt$placing[match(clf8$hseno, dfrslt$No)]
-for(i in 1:nrow(clf8)){if (clf8$finish[i]==1){clf8$lth[i]=0}}
 clf8$lth<-dfrslt$Margin[match(clf8$hseno, dfrslt$No)]
 clf8$sp<-dfrslt$Price[match(clf8$hseno, dfrslt$No)]
+View(clf8)
 for(i in 1:nrow(clf8)){if (clf8$finish[i]==1){clf8$lth[i]=0}}
 clf8 <- na.omit(clf8)
 View(clf8)
 #-------------------------------------------------------
 # Results analysis and append to clf
-dfrslt<-read.csv("200912_Flemington_R9_results.csv", stringsAsFactors = FALSE)
+dfrslt<-read.csv("200725_Caulfield_R9_results.csv", stringsAsFactors = FALSE)
 View(dfrslt)
 t(dfrslt) # May not need
 as.data.frame(dfrslt) ### IMPORTANT but may not need
@@ -334,6 +338,7 @@ View (dfrslt)
 clf9$finish<-dfrslt$placing[match(clf9$hseno, dfrslt$No)]
 clf9$lth<-dfrslt$Margin[match(clf9$hseno, dfrslt$No)]
 clf9$sp<-dfrslt$Price[match(clf9$hseno, dfrslt$No)]
+View(clf9)
 # clf %>% mutate_if(is.factor, as.character) ->clf
 # clf<-clf[-c(125),]
 for(i in 1:nrow(clf9)){if (clf9$finish[i]==1){clf9$lth[i]=0}}
